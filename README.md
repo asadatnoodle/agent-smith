@@ -10,7 +10,7 @@ Agent Smith is an advanced meta-agent orchestration system for Claude Code that 
 - **👥 Agent Multiplication**: Spawn multiple specialized agents for parallel task execution
 - **📁 Persistent Agent Creation**: Creates reusable agent configurations stored as files
 - **🤝 Human-Friendly Naming**: Agents have names and roles (e.g., Agent Sarah (Security Sentinel))
-- **🔌 Full MCP Integration**: All agents have access to Perplexity, Goal Story, Supabase, and IDE tools
+- **🔌 Full MCP Integration**: All agents inherit access to your configured MCP tools (databases, APIs, services)
 - **🎯 Intelligent Task Routing**: Automatically determines when to spawn specialists
 - **🔗 Advanced Coordination**: Hierarchical, mesh, and pipeline coordination patterns
 
@@ -84,7 +84,7 @@ When Agent Smith encounters a task requiring specialization:
 name: agent-sarah-security
 description: Sarah (Security Sentinel) - Specialized persistent agent for security
 model: sonnet
-tools: [Full MCP tool suite + standard tools]
+tools: [All standard tools + your configured MCP tools]
 ---
 
 You are Agent Sarah (Security Sentinel)...
@@ -121,22 +121,33 @@ Task: Audit 20 microservices
 
 ## 🛠️ MCP Tools Integration
 
-All spawned agents have full access to MCP tools:
+All spawned agents can inherit full access to your configured MCP (Model Context Protocol) tools, enabling powerful integrations:
 
-- **🔍 Perplexity AI** (`mcp__perplexity__perplexity_ask`): Advanced web search and AI queries
-- **🎯 Goal Story** (28 functions): Task management and goal tracking
-- **🗄️ Supabase** (`mcp__supabase__query`): Database operations
-- **💻 IDE Integration** (`mcp__ide__getDiagnostics`, `mcp__ide__executeCode`): Direct IDE control
+**Example Integration Categories:**
+- **🔍 AI Search Services**: Web search, knowledge bases, real-time information
+- **🎯 Task Management**: Goal tracking, project management, workflow automation
+- **🗄️ Database Systems**: Direct database queries, analytics, data operations
+- **💻 IDE Integration**: Code diagnostics, test execution, development environment control
+- **📊 Analytics Platforms**: Metrics, monitoring, performance analysis
+- **🔐 Security Tools**: Vulnerability scanning, audit systems, compliance checking
 
-Example usage:
+Example usage patterns:
 ```python
-# Agent Sarah can search for latest security vulnerabilities
-perplexity_result = mcp__perplexity__perplexity_ask(
-    messages=[{"role": "user", "content": "Latest OWASP Top 10 changes"}]
+# Agent Sarah researching security best practices
+research_result = mcp__search_service(
+    query="Latest API security vulnerabilities 2024"
 )
 
-# Agent Marcus can query databases
-data = mcp__supabase__query(sql="SELECT * FROM security_logs WHERE severity='critical'")
+# Agent Marcus analyzing database performance
+performance_data = mcp__database_tool(
+    query="SELECT avg_response_time FROM metrics WHERE service='api'"
+)
+
+# Agent David running automated tests
+test_results = mcp__ide_tool(
+    action="run_tests",
+    path="src/components/"
+)
 ```
 
 ## 📚 Specialized Agent Examples
